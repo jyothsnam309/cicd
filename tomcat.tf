@@ -1,5 +1,5 @@
-resource "aws_security_group" "cicd-tomcat" {
-  name        = "cicd-tomcat-sg"
+resource "aws_security_group" "cicd-app" {
+  name        = "cicd-app-sg"
   description = "Allow admin to ssh"
   vpc_id      = aws_vpc.dev-vpc.id
 
@@ -30,18 +30,18 @@ resource "aws_security_group" "cicd-tomcat" {
   }
 
   tags = {
-    Name = "cicd-tomcat-sg"
+    Name = "cicd-app-sg"
   }
 }
 
 
 
-resource "aws_instance" "cicd-tomcat" {
+resource "aws_instance" "cicd-app" {
   ami           = "ami-0b89f7b3f054b957e"
   instance_type = "t2.micro"
 #  vpc_id = "aws_vpc.dev-vpc.id"
   subnet_id              = aws_subnet.dev-pub[0].id
-  vpc_security_group_ids = [aws_security_group.cicd-tomcat.id]
+  vpc_security_group_ids = [aws_security_group.cicd-app.id]
  key_name = aws_key_pair.dev.id
 
 
